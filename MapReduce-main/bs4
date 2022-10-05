@@ -1,0 +1,30 @@
+from functools import reduce
+import xml.etree.ElementTree as ET
+import os  
+from collections import Counter
+import datetime
+
+#functions open files XML´s
+
+read = ET.parse("posts.xml")
+root = read.getroot()
+
+
+
+#get score
+def get_score(data):
+    post_type_id = data.attrib['PostTypeId']
+    if post_type_id == '1':
+        id = data.attrib['Id']
+        score = int(data.attrib['Score'])
+        creation_date = data.attrib['CreationDate']
+        creation_date = datetime.strptime(creation_date, '%Y-%m-%dT%H:%M:%S.%f')
+        return id, score, creation_date
+
+
+
+
+
+for alkemy in root:
+    change_datetime = datetime.datetime.strptime(alkemy.attrib["CreationDate"], '%Y-%m-%dT%H:%M:%S.%f')
+    print(change_datetime)
